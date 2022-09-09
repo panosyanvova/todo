@@ -4,7 +4,7 @@ import Todolist from './Todolist'
 
 export default function Home() {
 
-    const [todo, poxelTodo] = useState([])
+    const [todo, poxelTodo] = useState([]);
 
     function inputValu(value) {
         poxelTodo([
@@ -17,13 +17,20 @@ export default function Home() {
         ])
     }
 
+    function onChecet(id) {
+        poxelTodo(todo.map((el) => {
+            if (el.id == id) return { ...el, activ: !el.activ }
+            return el
+        }))
+    }
 
-
-    console.log(todo);
+    function clearChecet() {
+        poxelTodo(todo.filter((el) => !el.activ));
+    }
     return (
         <div>
-            <Todoinput onHendlChenge={inputValu} />
-            <Todolist value={todo} />
+            <Todoinput onHendlChenge={inputValu} onClearChecet={clearChecet} />
+            <Todolist value={todo} onChecet={onChecet} />
         </div>
     )
 }
